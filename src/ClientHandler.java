@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class ClientHandler implements Runnable {
+public final class ClientHandler implements Handler {
     private final Socket clientSocket;
 
     ClientHandler(Socket clientSocket) {
@@ -20,6 +20,8 @@ public final class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("Client connected.");
+
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
              PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true)) {
 
