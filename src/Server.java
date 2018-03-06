@@ -2,9 +2,10 @@ import java.io.*;
 import java.net.*;
 
 final class Server {
-    public static void main(String[] args) {
-        final int PORT = 1250;
+    private static final boolean WEB_SERVER = true;
+    private static final int PORT = (WEB_SERVER) ? 8080 : 1250;
 
+    public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Waiting for connections...");
             Socket clientSocket;
@@ -15,7 +16,8 @@ final class Server {
                     ioe.printStackTrace();
                     return;
                 }
-                new Thread(new ClientHandler(clientSocket)).start();
+                System.out.println("Client connecting.");
+                new Thread((WEB_SERVER) ? new WebHandler(clientSocket) : new ClientHandler(clientSocket)).start();
             } while(true);
         } catch (IOException ioe) {
             System.err.println("Failed to create a server socket on port " + PORT + ".");
