@@ -15,19 +15,20 @@ final class Client {
              BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
 
-            System.out.println("Connection established.");
-
             /* Reads instructions from server */
-            String instruction1 = reader.readLine();
-            String instruction2 = reader.readLine();
-            System.out.println(instruction1 + "\n" + instruction2);
+            String welcome = reader.readLine();
+            String instruction = reader.readLine();
+            System.out.println(welcome);
+            System.out.println(instruction);
 
             /* Read message from user */
+            System.out.print("Expression: ");
             String line = scanner.nextLine();
             while (!line.equals("")) {
                 writer.println(line);  // Sends message to server
                 String response = reader.readLine();  // Receives response from server.
-                System.out.println("From server: " + response);
+                System.out.println("\n" + response);
+                System.out.print("Expression: ");
                 line = scanner.nextLine();
             }
 

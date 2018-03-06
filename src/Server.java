@@ -6,6 +6,7 @@ final class Server {
         final int PORT = 1250;
 
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println("Waiting for connections...");
             Socket clientSocket;
             do {
                 try {
