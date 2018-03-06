@@ -8,32 +8,37 @@ final class Client {
 
         /* Read user input from CLI */
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the IP or hostname of the server to connect to: ");
-        String server = scanner.nextLine();
+        System.out.println("Enter the IP or hostname of the server to connect to: ");
+        String server;
 
-        try (Socket socket = new Socket(server, PORT);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
+        do {
+            server = scanner.nextLine();
+            if (!server.equalsIgnoreCase("exit")) {
+                try (Socket socket = new Socket(server, PORT);
+                     BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                     PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
 
-            /* Reads instructions from server */
-            String welcome = reader.readLine();
-            String instruction = reader.readLine();
-            System.out.println(welcome);
-            System.out.println(instruction);
+                    /* Reads instructions from server */
+                    String welcome = reader.readLine();
+                    String instruction = reader.readLine();
+                    System.out.println(welcome);
+                    System.out.println(instruction);
 
-            /* Read message from user */
-            System.out.print("Expression: ");
-            String line = scanner.nextLine();
-            while (!line.equals("")) {
-                writer.println(line);  // Sends message to server
-                String response = reader.readLine();  // Receives response from server.
-                System.out.println("\n" + response);
-                System.out.print("Expression: ");
-                line = scanner.nextLine();
+                    /* Read message from user */
+                    System.out.print("Expression: ");
+                    String line = scanner.nextLine();
+                    while (!line.equals("")) {
+                        writer.println(line);  // Sends message to server
+                        String response = reader.readLine();  // Receives response from server.
+                        System.out.println("\n" + response);
+                        System.out.print("Expression: ");
+                        line = scanner.nextLine();
+                    }
+
+                } catch (IOException ioe) {
+                    System.err.println(ioe.getMessage() + ", Type exit to quit.");
+                }
             }
-
-        } catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
+        } while (!server.equalsIgnoreCase("exit"));
     }
 }
