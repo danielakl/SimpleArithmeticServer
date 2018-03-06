@@ -1,4 +1,6 @@
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,7 @@ public class WebHandler implements Handler {
                     "<body>" +
                     "<h1>Welcome to the Server</h1>" +
                     "<ul>" +
-                        sb.toString() +
+                    sb.toString() +
                     "</ul>" +
                     "</body>" +
                     "</html>").getBytes());

@@ -1,8 +1,9 @@
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 final class Server {
-    private static final boolean WEB_SERVER = false;
+    private static final boolean WEB_SERVER = true;
     private static final int PORT = (WEB_SERVER) ? 8080 : 1250;
 
     public static void main(String[] args) {
@@ -18,7 +19,7 @@ final class Server {
                 }
                 System.out.println("Client connecting.");
                 new Thread((WEB_SERVER) ? new WebHandler(clientSocket) : new ClientHandler(clientSocket)).start();
-            } while(true);
+            } while (true);
         } catch (IOException ioe) {
             System.err.println("Failed to create a server socket on port " + PORT + ".");
             ioe.printStackTrace();
