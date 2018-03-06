@@ -1,0 +1,1 @@
+interface Handler extends Runnable {}
