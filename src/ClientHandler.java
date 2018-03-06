@@ -36,24 +36,24 @@ public final class ClientHandler implements Runnable {
                 }
 
                 // Process operators.
-                pattern = Pattern.compile("[*/+\\-]");
+                pattern = Pattern.compile("[*/+-]");
                 matcher = pattern.matcher(line);
                 double result = (values.size() >= 1) ? values.get(0) : 0.0;
-                for (int i = 0; i < values.size(); i++) {
+                for (int i = 1; i < values.size(); i++) {
                     if (matcher.find()) {
                         try {
                             switch (matcher.group()) {
                                 case "+":
-                                    result += ((values.size() - 1 == i + 1) ? values.get(i + 1) : 0);
+                                    result += values.get(i);
                                     break;
                                 case "-":
-                                    result += (values.get(i) - ((values.size() - 1 == i + 1) ? values.get(i + 1) : 0));
+                                    result -= values.get(i);
                                     break;
                                 case "*":
-                                    result += (values.get(i) * ((values.size() - 1 == i + 1) ? values.get(i + 1) : 0));
+                                    result *= values.get(i);
                                     break;
                                 case "/":
-                                    result += (values.get(i) / ((values.size() - 1 == i + 1) ? values.get(i + 1) : 1));
+                                    result /= values.get(i);
                                     break;
                                 default:
                                     break;
