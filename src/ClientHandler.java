@@ -30,12 +30,12 @@ public final class ClientHandler implements Handler {
             writer.println("Give me a simple arithmetic expression to calculate.");
 
             /* Receives data from client */
+            ScriptEngineManager mgr = new ScriptEngineManager();
+            ScriptEngine engine = mgr.getEngineByName("JavaScript");
             String line = reader.readLine();  // Receives a line of text.
             while (line != null) {
                 String result = "";
                 try {
-                    ScriptEngineManager mgr = new ScriptEngineManager();
-                    ScriptEngine engine = mgr.getEngineByName("JavaScript");
                     result = engine.eval(line).toString();
                 } catch (Exception e) {
                     e.printStackTrace();

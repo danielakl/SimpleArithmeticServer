@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 
 final class Server {
-    private static final boolean WEB_SERVER = true;
+    private static final boolean WEB_SERVER = false;
     private static final int PORT = (WEB_SERVER) ? 8080 : 1250;
 
     public static void main(String[] args) {
